@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Mercado</title>
+    </h:head>
+
+    <p:dialog id="dlgInsertarProblema" widgetVar="wdlgInsertarProblema" closable="false" modal="true" resizable="true" 
+              header="Registrar Problema" showEffect="size" hideEffect="size">
+        <h:form id="frmInsertarProblema">
+            <p:messages autoUpdate="true"/>
+            <p:panel>
+                <h:panelGrid columns="2" >
+
+                    <p:outputLabel value="Descripcion:"/>
+                    <p:inputText value="#{controladorProblema.objProblema.descripcion}"
+                                 required="true"
+                                 requiredMessage="Nombre Obligatorio"/>
+                    <p:outputLabel value="Usuario: "/>
+                    <p:inputText value="#{controladorProblema.objProblema.id_usuario.idusuario}"
+                                 required="true"
+                                 requiredMessage="Nombre Obligatorio"/>
+                    <!--<p:selectOneMenu id="cmbProblema" 
+                                     value="#{controladorProblema.objProblema.id_usuario.idusuario}" 
+                                     style="width:250px;"
+                                     effect="fold" required="true" requiredMessage="El usuario es obligatoria">
+                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                        <f:selectItems value="#{controladorProblema.lstUsuario}"
+                                       var="sub" itemLabel="#{sub.nombreusuario}" itemValue="#{sub.idusuario}"/>
+                    </p:selectOneMenu>-->
+                </h:panelGrid>
+            </p:panel>
+            <center>
+                <p:commandButton value="Aceptar" icon="ui-icon-check"
+                                 action="#{controladorProblema.insertar()}"
+                                 update=":frmPrincipal:tblProblema"
+                                 onclick="PF('dlgInsertarProblema').hide()"/>
+
+                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                 onclick="PF('dlgInsertarProblema').hide()"
+                                 process="@this"/>
+            </center>
+        </h:form>
+    </p:dialog>
+</html>

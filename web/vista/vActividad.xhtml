@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../formulario/frmActividad.xhtml">
+
+            <ui:define name="=dialogos">
+                  <p:dialog id="dlgNuevoActividad" header="Nueva Actividad" 
+                          widgetVar="wdlgNuevoActividad" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoActividad">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Id Actividad:" />
+                            <p:inputText id="cd" value="#{cactividad.objActividadnew.idactividad}" required="true" requiredMessage="Es necesario ingresar el código" style="width: 250px"/>
+                            <h:outputText id="fac" style="font-weight: bold" value="Descripción: " />
+                            <p:selectOneMenu value="#{cactividad.objActividadnew.descripcionactividad}" style="width:250px;" required="true" requiredMessage="Es necesario escojer la facultad">
+                                <f:selectItem itemLabel="Seleccione Facultad" itemValue="#{null} "/>
+                                <f:selectItems value="#{cactividad.lstActividad}" var="objAct" itemLabel="#{objFac.facnombre}" itemValue="#{objFac.faccodigo}"/>
+                            </p:selectOneMenu>  
+                            <h:outputText style="font-weight: bold" value="Id Sub Actividad" />
+                            <p:inputText id="descrip" value="#{cactividad.objActividadnew.idsubactividad}" required="true" requiredMessage="Es necesario ingresar la descripción" style="width: 250px"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmActividad:tblActividad" oncomplete="wdlgNuevoActividad.hide()" actionListener="#{cEscuela.ingresarEscuela()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoActividad.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

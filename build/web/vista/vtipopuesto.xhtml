@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+
+        <ui:composition template="./../formulario/frmtipopuesto.xhtml">
+
+            <ui:define name="=dialogos">
+               <p:dialog id="dlgNuevoTipoPuesto" header="Nuevo Tipo Puesto" 
+                          widgetVar="wdlgNuevoTipoPuesto" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoTipoPuesto">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputText id="cd" value="#{ctipopuesto.objTipoPuestonew.tipoDescripcion}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmTipoPuesto:tblTipoPuesto" oncomplete="wdlgNuevoTipoPuesto.hide()" actionListener="#{ctipopuesto.ingresarTipoPuesto()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoTipoPuesto.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                
+                 <p:dialog id="dlgModificarTipoPuesto" header="Modificar Tipo Puesto" 
+                          widgetVar="wdlgModificarTipoPuesto" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarTipoPuesto">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputText id="cd" value="#{ctipopuesto.objTipoPuestosel.tipoDescripcion}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnModifyAceptar" update=":frmTipoPuesto:tblTipoPuesto" oncomplete="wdlgModificarTipoPuesto.hide()" actionListener="#{ctipopuesto.modificarTipoPuesto()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnModifyCancelar" onclick="wdlgModificarTipoPuesto.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgEliminarTipoPuesto" header="Eliminar Tipo Puesto" 
+                          widgetVar="wdlgEliminarTipoPuesto" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmEliminarTipoPuesto">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Código:" />
+                            <h:outputText value="#{ctipopuesto.objTipoPuestosel.idtipopuesto}"/>
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <h:outputText value="#{ctipopuesto.objTipoPuestosel.tipoDescripcion}"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnDeleteAceptar" update=":frmTipoPuesto:tblTipoPuesto" oncomplete="wdlgEliminarTipoPuesto.hide()" actionListener="#{ctipopuesto.eliminarTipoPuesto()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnDeleteCancelar" onclick="wdlgEliminarTipoPuesto.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Mercado</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage=" true">
+            <p:layoutUnit position="north">
+                <ui:insert name="=top">
+                    Usuario
+                </ui:insert>
+            </p:layoutUnit> 
+            <p:layoutUnit position="center">
+                <ui:insert name="=content">
+                    <p:growl id="msgs" showDetail="true"/>  
+                    <h:form id="frmPrincipal">                        
+                        <p:panelGrid columns="2" id="pnl" style="width: 1000px; height: 300px">
+                            <p:dataTable id="tblUsuario" value="#{controladorUsuario.lstUsuario}" var="usuario" 
+                                         rows="10" paginator="true"
+                                         rowKey="#{usuario.idusuario}"
+                                         selection="#{controladorUsuario.usuarioSel}"
+                                         selectionMode="single">
+                                <p:column headerText="Id Usuario" width="10%">
+                                    <h:outputText value="#{usuario.idusuario}"/>
+                                </p:column>
+                                <p:column headerText="Nombre Usuario" width="10%">
+                                    <h:outputText value="#{usuario.nombreusuario}"/>
+                                </p:column>    
+                                <p:column headerText="Contraseña" width="10%">
+                                    <h:outputText value="#{usuario.contraseña}"/>
+                                </p:column>  
+                                <p:column headerText="Editar" width="10%" style="text-align: center">
+                                    <p:commandButton icon="ui-icon-pencil"
+                                                     title="Editar" 
+                                                     onclick="PF('wdlgEditarUsuario').show()"
+                                                     update=":frmEditarUsuario">
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{controladorUsuario.usuarioSel}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                
+                            <p:column headerText="Eliminar" width="10%" style="text-align: center">
+                                <p:commandButton icon="ui-icon-close"
+                                                 title="Eliminar"
+                                                 onclick="PF('wdlgEliminarUsuario').show()"
+                                                 update=":frmEliminarUsuario">
+                                    <f:setPropertyActionListener value="#{usuario}" target="#{controladorUsuario.usuarioSel}"/>   
+                                </p:commandButton>
+                            </p:column>
+                                <!--
+                            <f:facet name="footer">
+                                <p:commandButton value="Nuevo Involucrado"
+                                                 icon="ui-icon-plus"
+                                                 onclick="PF('dlgInsertarInvolucrado').show()"
+                                                 update="frmInvolucrado"/>
+                            </f:facet>-->
+                                <f:facet name="footer">
+                                    <p:commandButton id="btnNuevoInvolucrado" 
+                                                     update=":frmInsertarUsuario" 
+                                                     onclick="PF('wdlgInsertarUsuario').show()" 
+                                                     icon="ui-icon-plus" value="Nueva Usuario" 
+                                                     title="Nuevo Usuario"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit> 
+        </p:layout>
+        
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
+            <img src="../resources/gifs/cargando.gif" alt=""/>                        
+        </p:dialog>  
+
+        <ui:include src="frmInsertarUsuario.xhtml"/>
+        <ui:include src="frmEditarUsuario.xhtml"/>
+        <ui:include src="frmEliminarUsuario.xhtml"/>
+    </h:body>
+
+</html>

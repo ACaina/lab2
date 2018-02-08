@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>laboratorio</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage=" true">
+            <p:layoutUnit position="north">
+                <ui:insert name="=top">
+                    contenido de la cabecera del formulario
+                </ui:insert>
+            </p:layoutUnit> 
+            <p:layoutUnit position="center">
+                <ui:insert name="=content">
+                    <p:growl id="msgs" showDetail="true"/>  
+                    <h:form id="frmReporte">
+                        <p:panelGrid columns="2" id="pnl" style="width: 1000px; height: 300px">
+                                    <h:outputLabel for="lab" style="font-weight: bold" value="Seleccion Laboratorio" />
+                                    <p:outputLabel value="#{cLaboratorio.objLaboratorio}"/>
+                                    <p:selectOneMenu value="#{cLabo}" style="width: 250px" required="true" requiredMessage="Es necesario escojer el Periodo Académico">
+                                        <f:selectItems value="#{cDocenteReporteControl.lstPeriodoAcademico}" var="objPeriodo" itemLabel="#{objPeriodo.pernombre}" itemValue="#{objPeriodo.percodigo}"/>
+                                    </p:selectOneMenu>
+                                    <h:commandLink disabled="#{cDocenteReporteControl.mostrarAnexoV()}" title="Si esta desactivado: No todos los Anexos de Vinculación están registrados" actionListener="#{cReporte.reporteVinculacion(cDocenteReporteControl.cedula, cDocenteReporteControl.objperiodo.percodigo)}">
+                                        <h:graphicImage style="width: 4%" library="images" name="pdf.png"/>
+                                    </h:commandLink>
+                        </p:panelGrid>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit> 
+        </p:layout>
+        <ui:insert name="=dialogos">    dialogos     </ui:insert>
+
+    </h:body>
+
+</html>

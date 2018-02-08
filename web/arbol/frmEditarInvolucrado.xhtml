@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Mercado</title>
+    </h:head>
+
+    <p:dialog id="dlgEditarInvolucrado" widgetVar="wdlgEditarInvolucrado" closable="false" modal="true" resizable="true" 
+              header="Editar Involucrado" showEffect="size" hideEffect="size">
+        <h:form id="frmEditarInvolucrado">
+            <p:messages autoUpdate="true"/>
+            <p:panel>
+                <h:panelGrid columns="2">
+                    
+                    <p:outputLabel value="Nombres Involucrado: "/>
+                    <p:inputText value="#{controladorInvolucrado.involucradoSel.nombre_involucrado}"
+                                 required="true"
+                                 requiredMessage="Nombres es Obligatorio"/>
+                    <p:outputLabel value="Que Hacer: "/>
+                    <p:inputText value="#{controladorInvolucrado.involucradoSel.quehacer}"
+                                 required="true"
+                                 requiredMessage="Que Hacer es Obligatorio"/>
+                    <p:outputLabel value="Interes: "/>
+                    <p:inputText value="#{controladorInvolucrado.involucradoSel.interes}"
+                                 required="true"
+                                 requiredMessage="Interes es Obligatorio"/>
+                    <p:outputLabel value="Fortalezas: "/>
+                    <p:inputText value="#{controladorInvolucrado.involucradoSel.fortalezas}"
+                                 required="true"
+                                 requiredMessage="Fartalezas Obligatorio"/>
+                    <p:outputLabel value="Limitaciones: "/>
+                    <p:inputText value="#{controladorInvolucrado.involucradoSel.limitaciones}"
+                                 required="true"
+                                 requiredMessage="Limitaciones Obligatorio"/>
+                    <p:outputLabel value="Tipo "/>
+                    <p:selectOneMenu id="cmdTipo" value="#{controladorInvolucrado.involucradoSel.tipo}" 
+                                     style="width:125px" effect="fold" required="true" requiredMessage="Tipo es obligatorio">
+                        <f:selectItem itemLabel="--Seleccione--" itemValue="" />
+                        <f:selectItem itemLabel="Directo" itemValue="Directo" />
+                        <f:selectItem itemLabel="Indirecto" itemValue="Indirecto" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Problema "/>
+                    <p:inputText value="#{controladorInvolucrado.involucradoSel.id_problema.id_problema}"
+                                 required="true"
+                                 requiredMessage="Problema Obligatorio"/>
+                </h:panelGrid>
+            </p:panel>
+            <center>
+                <p:commandButton value="Aceptar" icon="ui-icon-check"
+                                 action="#{controladorInvolucrado.actualizar()}"
+                                 update=":frmPrincipal:tblInvolucrado"
+                                 onclick="PF('dlgInsertarInvolucrado').hide()"/>
+                
+                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                 onclick="PF('dlgEditarInvolucrado').hide()"
+                                 process="@this"/>
+            </center>
+        </h:form>
+    </p:dialog>
+</html>

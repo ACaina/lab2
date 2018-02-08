@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../formulario/frmTipomantenimiento.xhtml">
+            <ui:define name="=dialogos">
+                <p:dialog id="dlgNuevoTipomantenimiento" header="Nuevo Tipo Mantenimiento" 
+                          widgetVar="wdlgNuevoTipomantenimiento" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoTipomantenimiento">
+                        <p:panelGrid  columns="2">
+                            <h:outputText id="tipo" style="font-weight: bold" value="Tipo: " />
+                            <p:selectOneMenu value="#{cTipomantenimiento.objTipomnew.tipcodigo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer un tipo">
+                                <f:selectItem itemLabel="Seleccione Tipo" itemValue="#{null} "/>
+                                <f:selectItems value="#{cTipomantenimiento.lstTipo}" var="objtipo" itemLabel="#{objtipo.tipdescripcion}" itemValue="#{objtipo.tipcodigo}"/>
+                            </p:selectOneMenu>  
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputTextarea id="ttnivel" value="#{cTipomantenimiento.objTipomnew.tipmdescripcion}" style="width: 270px; "  required="true" requiredMessage="Escriba la descripción" rows="4" cols="50" counter="display1" maxlength="200" counterTemplate="{0} Caracteres Permitidos." autoResize="false"/>
+                            <h:outputText id="display1" style="font-size: xx-small" />
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmTipomantenimiento:tblTipomantenimiento" oncomplete="wdlgNuevoTipomantenimiento.hide()" actionListener="#{cTipomantenimiento.ingresarTipomantenimiento()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoTipomantenimiento.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgModificarTipomantenimiento" header="Modificar Tipo Mantenimiento" 
+                          widgetVar="wdlgModificarTipomantenimiento" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarTipomantenimiento">
+                        <p:panelGrid  columns="2">
+                            <h:outputText id="tipo" style="font-weight: bold" value="Tipo: " />
+                            <p:selectOneMenu value="#{cTipomantenimiento.objTipomsel.tipcodigo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer un tipo">
+                                <f:selectItem itemLabel="Seleccione Tipo" itemValue="#{null} "/>
+                                <f:selectItems value="#{cTipomantenimiento.lstTipo}" var="objtipo" itemLabel="#{objtipo.tipdescripcion}" itemValue="#{objtipo.tipcodigo}"/>
+                            </p:selectOneMenu>  
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputTextarea id="ttnivel" value="#{cTipomantenimiento.objTipomsel.tipmdescripcion}" style="width: 270px; "  required="true" requiredMessage="Escriba la descripción" rows="4" cols="50" counter="display1" maxlength="200" counterTemplate="{0} Caracteres Permitidos." autoResize="false"/>
+                            <h:outputText id="display1" style="font-size: xx-small" />
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnModifyAceptar" update=":frmTipomantenimiento:tblTipomantenimiento" oncomplete="wdlgModificarTipomantenimiento.hide()" actionListener="#{cTipomantenimiento.modificarTipomantenimiento()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnModifyCancelar" onclick="wdlgModificarTipomantenimiento.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgEliminarTipomantenimiento" header="Eliminar Tipo Mantenimiento" 
+                          widgetVar="wdlgEliminarTipomantenimiento" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmEliminarTipomantenimiento">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Código: " />
+                            <h:outputText value="#{cTipomantenimiento.objTipomsel.tipmcodigo}"/>
+                            <h:outputText style="font-weight: bold" value="Tipo: " />
+                            <h:outputText value="#{cTipomantenimiento.objTipomsel.tipdescripcionx}"/>
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <h:outputText value="#{cTipomantenimiento.objTipomsel.tipmdescripcion}"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnDeleteAceptar" update=":frmTipomantenimiento:tblTipomantenimiento" oncomplete="wdlgEliminarTipomantenimiento.hide()" actionListener="#{cTipomantenimiento.eliminarTipomantenimiento()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnDeleteCancelar" onclick="wdlgEliminarTipomantenimiento.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>                
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

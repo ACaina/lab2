@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>laboratorio</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage=" true">
+            <p:layoutUnit position="north">
+                <ui:insert name="=top">
+                    Administración de Usuario
+                </ui:insert>
+            </p:layoutUnit> 
+            <p:layoutUnit position="center">
+                <ui:insert name="=content">
+                    <p:growl id="msgs" showDetail="true"/>  
+                    <h:form id="frmUsuario">
+                        <p:panelGrid columns="2" id="pnl" style="width: 1000px; height: 300px">
+                            <p:dataTable id="tblUsuario" var="objusuario" value="#{cUsuario.lstUsuario}" 
+                                         rows="10" emptyMessage="Sin datos">
+                                <f:facet name="header">
+                                    Usuario
+                                </f:facet>
+                                <p:column headerText="ID:">
+                                    <h:outputText value="#{objusuario.idusuario}"/>
+                                </p:column>
+                                <p:column headerText="Usuario:">
+                                    <h:outputText value="#{objusuario.nombreusuario}"/>
+                                </p:column>
+                                <p:column headerText="Contraseña">
+                                    <h:outputText value="#{objusuario.contraseña}"/>
+                                </p:column>                  
+                                <!--   botones  -->
+                                <p:column headerText="Modificar" style="width:32px;text-align: center">
+                                    <p:commandButton update=":frmModificarUsuario" oncomplete="wdlgModificarUsuario.show()" icon="ui-icon-pencil" title="Modificar">
+                                        <f:setPropertyActionListener value="#{objusuario}" target="#{cUsuario.objUsuariosel}" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column headerText="Eliminar" style="width:32px;text-align: center">
+                                    <p:commandButton update=":frmEliminarUsuario" oncomplete="wdlgEliminarUsuario.show()" icon="ui-icon-close" title="Eliminar">
+                                        <f:setPropertyActionListener value="#{objusuario}" target="#{cUsuario.objUsuariosel}" />
+                                    </p:commandButton>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="btnNuevoUsuario" update=":msgs" onclick="PF('wdlgNuevoUsuario').show()" icon="ui-icon-document" value="Nuevo Usuario" title="Nuevo Usuario"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit> 
+        </p:layout>
+        <ui:insert name="=dialogos">    dialogos     </ui:insert>
+
+    </h:body>
+
+</html>

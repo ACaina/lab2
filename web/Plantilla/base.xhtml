@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Arbol</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage="true">
+
+            <div id="top">
+                <p:layoutUnit position="north" size="10%" gutter="0" collapsible="true">
+                    <ui:include src="cabecera.xhtml"/>
+                </p:layoutUnit>
+            </div>
+            <div>
+                <div id="left">
+                    <p:layoutUnit position="west" size="14%" resizable="true">
+                        <ui:insert name="left">
+                            <h:form>
+                                <p:menu>
+                                    <p:submenu label="Gestión Árbol">
+                                        <p:menuitem value="Involucrado" action="#{menuControlador.frmInvolucrado()}" update=":paginas" icon="ui-icon-check"/>
+                                        <p:menuitem value="Usuario" action="#{menuControlador.frmUsuario()}" update=":paginas" icon="ui-icon-check"/>
+                                        <p:menuitem value="Problema" action="#{menuControlador.frmProblema()}" update=":paginas" icon="ui-icon-check"/>
+                                        <p:menuitem value="Causa" action="#{menuControlador.frmCausa()}" update=":paginas" icon="ui-icon-check"/>
+                                        <p:menuitem value="Jerarquia" action="#{menuControlador.frmJerarquia()}" update=":paginas" icon="ui-icon-check"/>
+                                    </p:submenu>
+                                </p:menu>
+                            </h:form>
+                        </ui:insert>
+                    </p:layoutUnit>
+                </div>
+                <div id="content" class="left_content">
+                    <p:layoutUnit position="center" gutter="1">
+                        <ui:insert name="content">
+                            <h:panelGrid id="paginas">
+                                <!--<ui:include src="login.xhtml"/>-->
+                                <iframe name="ifr" width="390%" height="600px" src="#{menuControlador.ruta}" style="border: 0"></iframe>
+                            </h:panelGrid>
+                        </ui:insert>
+                    </p:layoutUnit>
+                </div>
+            </div>
+            <p:layoutUnit position="south" size="50" gutter="6">
+                <ui:include src="pie.xhtml"/>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+
+</html>

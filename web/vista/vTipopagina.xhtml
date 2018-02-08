@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../formulario/frmTipopagina.xhtml">
+
+            <ui:define name="=dialogos">
+                <p:dialog id="dlgNuevoTipopagina" header="Nuevo Tipo Página" 
+                          widgetVar="wdlgNuevoTipopagina" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoTipopagina">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputText id="cd" value="#{cTipopagina.objtipopaginanew.tppdescripcion}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <h:outputText style="font-weight: bold" value="Tipo:" />
+                            <p:selectOneMenu value="#{cTipopagina.objtipopaginanew.tpptipo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer el tipo">
+                                <f:selectItem itemLabel="Seleccione Tipo" itemValue="#{null} "/>
+                                <f:selectItem itemLabel="Permitida" itemValue="1"/>
+                                <f:selectItem itemLabel="No Permitida" itemValue="0"/>
+                            </p:selectOneMenu> 
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmTipopagina:tblTipopagina" oncomplete="wdlgNuevoTipopagina.hide()" actionListener="#{cTipopagina.ingresarTipopagina()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoTipopagina.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog id="dlgModificarTipopagina" header="Modificar Tipo Página" 
+                          widgetVar="wdlgModificarTipopagina" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarTipopagina">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputText value="#{cTipopagina.objtipopaginasel.tppdescripcion}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <h:outputText style="font-weight: bold" value="Tipo:" />
+                            <p:selectOneMenu value="#{cTipopagina.objtipopaginasel.tpptipo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer el tipo">
+                                <f:selectItem itemLabel="Seleccione Tipo" itemValue="#{null} "/>
+                                <f:selectItem itemLabel="Permitida" itemValue="1"/>
+                                <f:selectItem itemLabel="No Permitida" itemValue="0"/>
+                            </p:selectOneMenu> 
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnModifyAceptar" update=":frmTipopagina:tblTipopagina" oncomplete="wdlgModificarTipopagina.hide()" actionListener="#{cTipopagina.modificarTipopagina}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnModifyCancelar" onclick="wdlgModificarTipopagina.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgEliminarTipopagina" header="Eliminar Tipo Página" 
+                          widgetVar="wdlgEliminarTipopagina" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmEliminarTipopagina">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Código:" />
+                            <h:outputText value="#{cTipopagina.objtipopaginasel.tppcodigo}"/>
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <h:outputText value="#{cTipopagina.objtipopaginasel.tppdescripcion}"/>
+                            <h:outputText style="font-weight: bold" value="Tipo:" />
+                            <h:outputText value="#{cTipopagina.objtipopaginasel.tpptipoaux}"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnDeleteAceptar" update=":frmTipopagina:tblTipopagina" oncomplete="wdlgEliminarTipopagina.hide()" actionListener="#{cTipopagina.eliminarTipopagina()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnDeleteCancelar" onclick="wdlgEliminarTipopagina.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

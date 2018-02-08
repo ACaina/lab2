@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../formulario/frmFacultad.xhtml">
+
+
+            <ui:define name="=dialogos">
+                <p:dialog id="dlgNuevoFacultad" header="Nueva Facultad" 
+                          widgetVar="wdlgNuevoFacultad" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoFacultad">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Código:" />
+                            <p:inputText id="cd" value="#{cFacultad.objFacultadnew.faccodigo}" required="true" requiredMessage="Es necesario ingresar el código" style="width: 250px"/>
+                            <h:outputText style="font-weight: bold" value="Descripción" />
+                            <p:inputText id="descrip" value="#{cFacultad.objFacultadnew.facnombre}" required="true" requiredMessage="Es necesario ingresar la descripción" style="width: 250px"/>
+
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmFacultad:tblFacultad" oncomplete="wdlgNuevoFacultad.hide()" actionListener="#{cFacultad.ingresarFacultad()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoFacultad.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

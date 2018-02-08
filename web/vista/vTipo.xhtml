@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../formulario/frmTipo.xhtml">
+
+            <ui:define name="=dialogos">
+               <p:dialog id="dlgNuevoTipo" header="Nuevo Tipo" 
+                          widgetVar="wdlgNuevoTipo" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoTipo">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputText id="cd" value="#{cTipo.objTiponew.tipdescripcion}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmTipo:tblTipo" oncomplete="wdlgNuevoTipo.hide()" actionListener="#{cTipo.ingresarTipo()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoTipo.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                
+                 <p:dialog id="dlgModificarTipo" header="Modificar Tipo" 
+                          widgetVar="wdlgModificarTipo" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarTipo">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputText id="cd" value="#{cTipo.objTiposel.tipdescripcion}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnModifyAceptar" update=":frmTipo:tblTipo" oncomplete="wdlgModificarTipo.hide()" actionListener="#{cTipo.modificarTipo()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnModifyCancelar" onclick="wdlgModificarTipo.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgEliminarTipo" header="Eliminar Tipo" 
+                          widgetVar="wdlgEliminarTipo" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmEliminarTipo">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Código:" />
+                            <h:outputText value="#{cTipo.objTiposel.tipcodigo}"/>
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <h:outputText value="#{cTipo.objTiposel.tipdescripcion}"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnDeleteAceptar" update=":frmTipo:tblTipo" oncomplete="wdlgEliminarTipo.hide()" actionListener="#{cTipo.eliminarTipo()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnDeleteCancelar" onclick="wdlgEliminarTipo.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

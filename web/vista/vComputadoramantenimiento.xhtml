@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../formulario/frmComputadoramantenimiento.xhtml">
+
+            <ui:define name="=dialogos">
+                <p:dialog id="dlgModificarComputadoraMantenimiento" header="Histórico Mantenimiento"
+                          widgetVar="wdlgModificarComputadoraMantenimiento" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarComputadoraMantenimiento">
+                        <p:panelGrid  columns="2">
+                            <p:dataTable id="tblComputadoraMantenimiento" var="objMan" value="#{cComputadoramantenimiento.lstMantenimiento}" 
+                                         rows="10" emptyMessage="Sin datos">
+                                <p:column headerText="Código/Bien">
+                                    <h:outputText value="#{objMan.comcodigobienesx}"/>
+                                </p:column>
+                                <p:column headerText="Número PC">
+                                    <h:outputText value="#{objMan.comnumerocomputadorax}"/>
+                                </p:column>
+                                <p:column headerText="Tipo Mantenimiento">
+                                    <h:outputText value="#{objMan.tipmdescripcionx}"/>
+                                </p:column>
+                                <p:column headerText="Responsable">
+                                    <h:outputText value="#{objMan.manresponsable}"/>
+                                </p:column>
+                                <p:column headerText="Fecha">
+                                    <h:outputText value="#{objMan.manfecha}"/>
+                                </p:column>
+                                <!--Botones-->
+                                  <!--   botones  -->
+                                <p:column headerText="Modificar" style="width:32px;text-align: center">
+                                    <p:commandButton update=":frmModificarMantenimiento" oncomplete="wdlgModificarMantenimiento.show()" icon="ui-icon-pencil" title="Modificar">
+                                        <f:setPropertyActionListener value="#{objMan}" target="#{cComputadoramantenimiento.objMantenimientosel}" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column headerText="Eliminar" style="width:32px;text-align: center">
+                                    <p:commandButton update=":frmEliminarMantenimiento" oncomplete="wdlgEliminarMantenimiento.show()" icon="ui-icon-close" title="Eliminar">
+                                        <f:setPropertyActionListener value="#{objMan}" target="#{cComputadoramantenimiento.objMantenimientosel}" />
+                                    </p:commandButton>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="btnNuevoMantenimiento" update=":msgs" oncomplete="wdlgNuevoMantenimiento.show()" icon="ui-icon-document" value="Nuevo" title="Nuevo"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                
+                
+                 <p:dialog id="dlgNuevoMantenimiento" header="Nuevo Mantenimiento" 
+                          widgetVar="wdlgNuevoMantenimiento" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoMantenimiento">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Tipo Mantenimiento: " />
+                            <p:selectOneMenu value="#{cComputadoramantenimiento.objMantenimientonew.tipmcodigo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer el tipo de mantenimiento">
+                                <f:selectItem itemLabel="Seleccione Mantenimiento" itemValue="#{null} "/>
+                                <f:selectItems value="#{cComputadoramantenimiento.lstTipomantenimiento}" var="objMan" itemLabel="#{objMan.tipmdescripcion}-#{objMan.tipdescripcionx}" itemValue="#{objMan.tipmcodigo}"/>
+                            </p:selectOneMenu>  
+                            <h:outputText style="font-weight: bold" value="Responsable:" />
+                            <p:inputTextarea id="ttnivel" value="#{cComputadoramantenimiento.objMantenimientonew.manresponsable}" style="width: 270px; "  required="true" requiredMessage="Escriba el responsable en dar el mantenimiento" rows="4" cols="50" counter="display1" maxlength="100" counterTemplate="{0} Caracteres Permitidos." autoResize="false"/>
+                            <h:outputText id="display1" style="font-size: xx-small" /><br></br>
+                            <h:outputLabel for="fechai" style="font-weight: bold" value="Fecha Mantenimiento:"/>
+                            <p:calendar id="fechai" value="#{cComputadoramantenimiento.objMantenimientonew.manfecha}" navigator="true" required="true" requiredMessage="Escoja una fecha"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmModificarComputadoraMantenimiento:tblComputadoraMantenimiento" oncomplete="wdlgNuevoMantenimiento.hide()" actionListener="#{cComputadoramantenimiento.ingresarMantenimiento()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoMantenimiento.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog id="dlgModificarMantenimiento" header="Modificar Mantenimiento" 
+                          widgetVar="wdlgModificarMantenimiento" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarMantenimiento">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Computadora-codigo: " />
+                            <h:outputText value="#{cComputadoramantenimiento.objMantenimientosel.comcodigobienesx}" />
+                            <h:outputText style="font-weight: bold" value="Responsable:" />
+                            <p:inputTextarea value="#{cComputadoramantenimiento.objMantenimientosel.manresponsable}" style="width: 270px; "  required="true" requiredMessage="Escriba el responsable en dar el mantenimiento" rows="4" cols="50" counter="display1" maxlength="100" counterTemplate="{0} Caracteres Permitidos." autoResize="false"/>
+                            <h:outputText id="display1" style="font-size: xx-small" />
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnModifyAceptar" update=":frmModificarComputadoraMantenimiento:tblComputadoraMantenimiento" oncomplete="wdlgModificarMantenimiento.hide()" actionListener="#{cComputadoramantenimiento.modificarMantenimiento()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnModifyCancelar" onclick="wdlgModificarMantenimiento.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgEliminarMantenimiento" header="Eliminar Mantenimiento" 
+                          widgetVar="wdlgEliminarMantenimiento" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmEliminarMantenimiento">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Computadora-código: " />
+                            <h:outputText value="#{cComputadoramantenimiento.objMantenimientosel.comcodigobienesx}" />
+                            <h:outputText style="font-weight: bold" value="Fecha:" />
+                            <h:outputText value="#{cComputadoramantenimiento.objMantenimientosel.manfecha}" />
+                            <h:outputText style="font-weight: bold" value="Responsable:" />
+                            <h:outputText value="#{cComputadoramantenimiento.objMantenimientosel.manresponsable}" />
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnDeleteAceptar" update=":frmModificarComputadoraMantenimiento:tblComputadoraMantenimiento" oncomplete="wdlgEliminarMantenimiento.hide()" actionListener="#{cComputadoramantenimiento.eliminarMantenimiento()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnDeleteCancelar" onclick="wdlgEliminarMantenimiento.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

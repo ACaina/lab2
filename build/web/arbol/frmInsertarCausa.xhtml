@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Mercado</title>
+    </h:head>
+
+    <p:dialog id="dlgInsertarCausa" widgetVar="wdlgInsertarCausa" closable="false" modal="true" resizable="true" 
+              header="Registrar Causa" showEffect="size" hideEffect="size">
+        <h:form id="frmInsertarCausa">
+            <p:messages autoUpdate="true"/>
+            <p:panel>
+                <h:panelGrid columns="2" >
+
+                    <p:outputLabel value="Nombre Causa:"/>
+                    <p:inputText value="#{controladorCausa.objCausa.nombre_causa}"
+                                 required="true"
+                                 requiredMessage="Nombre Obligatorio"/>
+                    <p:outputLabel value="Titulo: "/>
+                    <p:inputText value="#{controladorCausa.objCausa.titulo}"
+                                 required="true"
+                                 requiredMessage="Titulo Obligatorio"/>
+                    <p:outputLabel value="Causa Padre: "/>
+                    <p:inputText value="#{controladorCausa.objCausa.id_causa_rec}"
+                                 required="true"
+                                 requiredMessage="Causa Padre Obligatoria"/>
+                    <p:outputLabel value="Problema: "/>
+                    <p:inputText value="#{controladorCausa.objCausa.id_problema.id_problema}"
+                                 required="true"
+                                 requiredMessage="Problema Obligatorio"/>
+                </h:panelGrid>
+            </p:panel>
+            <center>
+                <p:commandButton value="Aceptar" icon="ui-icon-check"
+                                 action="#{controladorCausa.insertar()}"
+                                 update=":frmPrincipal:tblCausa"
+                                 onclick="PF('dlgInsertarCausa').hide()"/>
+            
+                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                 onclick="PF('dlgInsertarCausa').hide()"
+                                 process="@this"/>
+            </center>
+        </h:form>
+    </p:dialog>
+</html>

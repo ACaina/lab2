@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Mercado</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage=" true">
+            <p:layoutUnit position="north">
+                <ui:insert name="=top">
+                    Causa
+                </ui:insert>
+            </p:layoutUnit> 
+            <p:layoutUnit position="center">
+                <ui:insert name="=content">
+                    <p:growl id="msgs" showDetail="true"/>  
+                    <h:form id="frmPrincipal">                        
+                        <p:panelGrid columns="2" id="pnl" style="width: 1000px; height: 300px">
+                            <p:dataTable id="tblCausa" value="#{controladorCausa.lstCausas}" var="causa" 
+                                         rows="10" paginator="true"
+                                         rowKey="#{causa.id_causa}"
+                                         selection="#{controladorCausa.causaSel}"
+                                         selectionMode="single">
+                                <p:column headerText="Id Causa" width="10%">
+                                    <h:outputText value="#{causa.id_causa}"/>
+                                </p:column>
+                                <p:column headerText="Nombre Causa" width="10%">
+                                    <h:outputText value="#{causa.nombre_causa}"/>
+                                </p:column>    
+                                <p:column headerText="titulo" width="10%">
+                                    <h:outputText value="#{causa.titulo}"/>
+                                </p:column>
+                                <p:column headerText="Causa padre" width="10%">
+                                    <h:outputText value="#{causa.id_causa_rec}"/>
+                                </p:column>
+                                <p:column headerText="Problema" width="10%">
+                                    <h:outputText value="#{causa.id_problema.id_problema}"/>
+                                </p:column>
+                                <p:column headerText="Editar" width="10%" style="text-align: center">
+                                    <p:commandButton icon="ui-icon-pencil"
+                                                     title="Editar" 
+                                                     onclick="PF('wdlgEditarCausa').show()"
+                                                     update=":frmEditarCausa">
+                                        <f:setPropertyActionListener value="#{causa}" target="#{controladorCausa.causaSel}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                
+                            <p:column headerText="Eliminar" width="10%" style="text-align: center">
+                                <p:commandButton icon="ui-icon-close"
+                                                 title="Eliminar"
+                                                 onclick="PF('wdlgEliminarCausa').show()"
+                                                 update=":frmEliminarCausa">
+                                    <f:setPropertyActionListener value="#{causa}" target="#{controladorCausa.causaSel}"/>   
+                                </p:commandButton>
+                            </p:column>
+                                <!--
+                            <f:facet name="footer">
+                                <p:commandButton value="Nuevo Involucrado"
+                                                 icon="ui-icon-plus"
+                                                 onclick="PF('dlgInsertarInvolucrado').show()"
+                                                 update="frmInvolucrado"/>
+                            </f:facet>-->
+                                <f:facet name="footer">
+                                    <p:commandButton id="btnNuevaCausa" 
+                                                     update=":frmInsertarCausa" 
+                                                     onclick="PF('wdlgInsertarCausa').show()" 
+                                                     icon="ui-icon-plus" value="Nueva Causa" 
+                                                     title="Nueva Causa"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit> 
+        </p:layout>
+        
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
+            <img src="../resources/gifs/cargando.gif" alt=""/>                        
+        </p:dialog>  
+
+        <ui:include src="frmInsertarCausa.xhtml"/>
+        <ui:include src="frmEditarCausa.xhtml"/>
+        <ui:include src="frmEliminarCausa.xhtml"/>
+    </h:body>
+
+</html>

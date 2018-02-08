@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../formulario/frmComprobante.xhtml">
+            <ui:define name="=dialogos">
+                <p:dialog id="dlgNuevoCComprobante" header="Nuevo Comprobante" 
+                          widgetVar="wdlgNuevoComprobante" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoComprobante">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Frecuencia uso:" />
+                            <p:selectOneMenu value="#{cComputadora.objComputadoranew.frecodigo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer la frecuencia de uso">
+                                <f:selectItem itemLabel="Seleccione Frecuencia" itemValue="#{null} "/>
+                                <f:selectItems value="#{cComputadora.lstFrecuencia}" var="objfre" itemLabel="#{objfre.fredescripcion}" itemValue="#{objfre.frecodigo}"/>
+                            </p:selectOneMenu>  
+                            <h:outputText style="font-weight: bold" value="Laboratorio:" />
+                            <p:selectOneMenu value="#{cComputadora.objComputadoranew.labcodigo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer el laboratorio">
+                                <f:selectItem itemLabel="Seleccione Laboratorio" itemValue="#{null} "/>
+                                <f:selectItems value="#{cComputadora.lstLaboratorio}" var="objlab" itemLabel="#{objlab.labdescripcion}" itemValue="#{objlab.labcodigo}"/>
+                            </p:selectOneMenu> 
+                            <p:outputLabel for="cdbie" style="font-weight: bold" value="Código Bienes: "/>
+                            <p:spinner id="cdbie" value="#{cComputadora.objComputadoranew.comcodigobienes}" min="1" required="true" requiredMessage="Ingrese el código de bienes" />
+                            <p:outputLabel for="cdbar" style="font-weight: bold" value="Código Barras: "/>
+                            <p:spinner id="cdbar" value="#{cComputadora.objComputadoranew.comcodigobarras}" min="1" required="true" requiredMessage="Ingrese el código de barras" />
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputTextarea id="ttnivel" value="#{cComputadora.objComputadoranew.comdescripcion}" style="width: 270px; "  required="true" requiredMessage="Escriba la descripción" rows="4" cols="50" counter="display1" maxlength="500" counterTemplate="{0} Caracteres Permitidos." autoResize="false"/>
+                            <h:outputText id="display1" style="font-size: xx-small" />
+                            <br></br>
+                            <p:outputLabel for="numpc" style="font-weight: bold" value="Número PC:"/>
+                            <p:spinner id="numpc" value="#{cComputadora.objComputadoranew.comnumerocomputadora}" min="1" required="true" requiredMessage="Ingrese el código de barras" />
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmComprobante:tblComprobante" oncomplete="wdlgNuevoComprobante.hide()" actionListener="#{cComputadora.ingresarComputadora()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgComprobante.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgModificarComprobante" header="Modificar Comprobante" 
+                          widgetVar="wdlgModificarComprobante" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarComprobante">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Frecuencia uso:" />
+                            <p:selectOneMenu value="#{cComputadora.objComputadorasel.frecodigo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer la frecuencia de uso">
+                                <f:selectItem itemLabel="Seleccione Frecuencia" itemValue="#{null} "/>
+                                <f:selectItems value="#{cComputadora.lstFrecuencia}" var="objfre" itemLabel="#{objfre.fredescripcion}" itemValue="#{objfre.frecodigo}"/>
+                            </p:selectOneMenu>  
+                            <h:outputText style="font-weight: bold" value="Laboratorio:" />
+                            <p:selectOneMenu value="#{cComputadora.objComputadorasel.labcodigo}" style="width:250px;" required="true" requiredMessage="Es necesario escojer el laboratorio">
+                                <f:selectItem itemLabel="Seleccione Laboratorio" itemValue="#{null} "/>
+                                <f:selectItems value="#{cComputadora.lstLaboratorio}" var="objlab" itemLabel="#{objlab.labdescripcion}" itemValue="#{objlab.labcodigo}"/>
+                            </p:selectOneMenu> 
+                            <p:outputLabel for="cdbie" style="font-weight: bold" value="Código Bienes: "/>
+                            <p:spinner id="cdbie" value="#{cComputadora.objComputadorasel.comcodigobienes}" min="1" required="true" requiredMessage="Ingrese el código de bienes" />
+                            <p:outputLabel for="cdbar" style="font-weight: bold" value="Código Barras: "/>
+                            <p:spinner id="cdbar" value="#{cComputadora.objComputadorasel.comcodigobarras}" min="1" required="true" requiredMessage="Ingrese el código de barras" />
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <p:inputTextarea id="ttnivel" value="#{cComputadora.objComputadorasel.comdescripcion}" style="width: 270px; "  required="true" requiredMessage="Escriba la descripción" rows="4" cols="50" counter="display1" maxlength="500" counterTemplate="{0} Caracteres Permitidos." autoResize="false"/>
+                            <h:outputText id="display1" style="font-size: xx-small" />
+                            <br></br>
+                            <p:outputLabel for="numpc" style="font-weight: bold" value="Número PC:"/>
+                            <p:spinner id="numpc" value="#{cComputadora.objComputadorasel.comnumerocomputadora}" min="1" required="true" requiredMessage="Ingrese el código de barras" />
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnModifyAceptar" update=":frmComprobante:tblComprobante" oncomplete="wdlgModificarComprobante.hide()" actionListener="#{cComputadora.modificarComputadora()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnModifyCancelar" onclick="wdlgModificarComprobante.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgEliminarComprobante" header="Eliminar Comprobante" 
+                          widgetVar="wdlgEliminarComprobante" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmEliminarComprobante">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Id:" />
+                            <h:outputText value="#{cComprobante.objComprobantesel.idcomprobante}" />
+                            <h:outputText style="font-weight: bold" value="Laboratorio:" />
+                            <h:outputText value="#{cComputadora.objComputadorasel.labdescripcionx}" />
+                            <p:outputLabel style="font-weight: bold" value="Código Bienes: "/>
+                            <p:outputLabel value="#{cComputadora.objComputadorasel.comcodigobienes}"/>
+                            <p:outputLabel style="font-weight: bold" value="Código Barras: "/>
+                            <p:outputLabel value="#{cComputadora.objComputadorasel.comcodigobarras}"/>
+                            <h:outputText style="font-weight: bold" value="Descripción:" />
+                            <h:outputText value="#{cComputadora.objComputadorasel.comdescripcion}" />
+                            <p:outputLabel style="font-weight: bold" value="Número PC:"/>
+                            <p:outputLabel value="#{cComputadora.objComputadorasel.comnumerocomputadora}"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnDeleteAceptar" update=":frmComprobante:tblComprobante" oncomplete="wdlgEliminarComprobante.hide()" actionListener="#{cComputadora.eliminarComputadora()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnDeleteCancelar" onclick="wdlgEliminarComprobante.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

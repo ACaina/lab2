@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>laboratorio</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage=" true">
+            <p:layoutUnit position="north">
+                <ui:insert name="=top">
+                    Administración del Mantenimiento de las Computadoras
+                </ui:insert>
+            </p:layoutUnit> 
+            <p:layoutUnit position="center">
+                <ui:insert name="=content">
+                    <p:growl id="msgs" showDetail="true"/>  
+                    <h:form id="frmComputadoraMantenimiento">
+                        <p:panelGrid columns="2" id="pnl" style="width: 1000px; height: 300px">
+                            <p:dataTable id="tblComputadoraMantenimiento" var="objMan" value="#{cComputadoramantenimiento.lstComputadora}" 
+                                         rows="10" emptyMessage="Sin datos">
+                                <f:facet name="header">
+                                    Computadora Mantenimiento
+                                </f:facet>
+                                <p:column headerText="Código/Bien">
+                                    <h:outputText value="#{objMan.comcodigobienes}"/>
+                                </p:column>
+
+                                <p:column headerText="Código/Bien">
+                                    <h:outputText value="#{objMan.comcodigobienes}"/>
+                                </p:column>
+                                <p:column headerText="Número PC">
+                                    <h:outputText value="#{objMan.comnumerocomputadora}"/>
+                                </p:column>
+                                <p:column headerText="Laboratorio">
+                                    <h:outputText value="#{objMan.labdescripcionx}"/>
+                                </p:column>
+                                <p:column headerText="Frecuencia Mantenimiento">
+                                    <h:outputText value="#{objMan.fredescripcionx}"/>
+                                </p:column>
+                                <p:column headerText="Estado">
+                                    <h:outputText value="#{cComputadoramantenimiento.alerta(objMan.comcodigo)}"/>
+                                </p:column>
+                                
+                                <!--   botones  -->
+                                <p:column headerText="Mantenimiento" style="width:32px;text-align: center">
+                                    <p:commandButton update=":frmModificarComputadoraMantenimiento" oncomplete="wdlgModificarComputadoraMantenimiento.show()" icon="ui-icon-close" 
+                                                     title="Eliminar" actionListener="#{cComputadoramantenimiento.cargarComputadoraMantenimiento(objMan.comcodigo)}">
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit> 
+        </p:layout>
+        <ui:insert name="=dialogos">    dialogos     </ui:insert>
+
+    </h:body>
+
+</html>

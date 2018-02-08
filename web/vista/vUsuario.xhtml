@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../formulario/frmUsuario.xhtml">
+
+            <ui:define name="=dialogos">
+                <p:dialog id="dlgNuevoUsuario" header="Nuevo Usuario" 
+                          widgetVar="wdlgNuevoUsuario" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmNuevoUsuario">
+                        <p:panelGrid  columns="2">
+                                                        <h:outputText style="font-weight: bold" value="Usuario:" />
+                            <p:inputText value="#{cUsuario.objUsuarionew.nombreusuario}"/>
+                            <h:outputText style="font-weight: bold" value="Contraseña:" />
+                            <p:inputText value="#{cUsuario.objUsuarionew.contraseña}"/> 
+                            
+                             <!--<p:selectOneMenu id="cbtpd" value="#{cUsuario.objUsuarionew.idusuario}" style="width: 340px" required="true">
+                                <f:selectItem itemLabel="Seleccione Carrera" itemValue="#{null} "/>
+                                <f:selectItems value="#{cUsuario.lstUsuario}" var="objCar" itemLabel="#{objCar.nombreusuario}" itemValue="#{objCar.idusuario}"/>
+                            </p:selectOneMenu>-->
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnCreateAceptar" update=":frmUsuario:tblUsuario" oncomplete="wdlgNuevoUsuario.hide()" actionListener="#{cUsuario.ingresarUsuario()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnCreateCancelar" onclick="wdlgNuevoUsuario.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog id="dlgModificarUsuario" header="Modificar Usuario" 
+                          widgetVar="wdlgModificarUsuario" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmModificarUsuario">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Id: " />
+                            <p:inputText value="#{cUsuario.objUsuariosel.idusuario}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <h:outputText style="font-weight: bold" value="Nombre: " />
+                            <p:inputText value="#{cUsuario.objUsuariosel.nombreusuario}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <h:outputText style="font-weight: bold" value="Contraseña: " />
+                            <p:inputText value="#{cUsuario.objUsuariosel.contraseña}" required="true" requiredMessage="Es necesario una descripción" style="width: 250px"/>
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnModifyAceptar" update=":frmUsuario:tblUsuario" oncomplete="wdlgModificarUsuario.hide()" actionListener="#{cUsuario.modificarUsuario()}" icon="ui-icon-disk" value="Guardar" title="Guardar"/>
+                                    <p:commandButton id="btnModifyCancelar" onclick="wdlgModificarUsuario.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="dlgEliminarUsuario" header="Eliminar Usuario" 
+                          widgetVar="wdlgEliminarUsuario" resizable="false" 
+                          showEffect="fade" hideEffect="explode" modal="true">  
+                    <h:form id="frmEliminarUsuario">
+                        <p:panelGrid  columns="2">
+                            <h:outputText style="font-weight: bold" value="Código: " />
+                            <h:outputText value="#{cUsuario.objUsuariosel.idusuario}"/>
+                            <h:outputText style="font-weight: bold" value="Usuario:" />
+                            <h:outputText value="#{cUsuario.objUsuariosel.nombreusuario}" />                  
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton id="btnDeleteAceptar" update=":frmUsuario:tblUsuario" oncomplete="wdlgEliminarUsuario.hide()" actionListener="#{cUsuario.eliminarUsuario()}" icon="ui-icon-check" value="Aceptar" title="Aceptar"/>
+                                    <p:commandButton id="btnDeleteCancelar" onclick="wdlgEliminarUsuario.hide()" icon="ui-icon-close" value="Cancelar" title="Cancelar" type="reset"/>
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
